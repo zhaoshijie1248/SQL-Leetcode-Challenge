@@ -72,6 +72,11 @@ from Sales s1 inner join Sales s2
 on s1.sale_date = s2.sale_date AND s1.fruit != s2.fruit
 group by s1.sale_date
 
+/*solution4*/
+select sale_date, sum(if(fruit = 'apples',1,-1)*sold_num) as diff
+from sales
+group by 1
+
 
 
 /*summary:
