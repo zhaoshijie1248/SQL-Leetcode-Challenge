@@ -1,10 +1,8 @@
-/*
+question:
 
-*/
-
-/*solution*/
+solution:
 
 
-/*summary:
+summary:
 
-*/
+the usage of DATEDIFF
