@@ -66,8 +66,19 @@ where a.rnk = 1
 order by a.student_id
 
 /*summary:
-1. need min(course_id) as course_id, alias
+1. need min(course_id) as course_id, alias3
 2. rank() over(partition by 
 https://www.cnblogs.com/xyhero/p/3484c97b362717d0a35fdb3621ab97a9.html 
 
 */
+
+第二次做：
+with new as(select student_id,course_id,grade,dense_rank() over(partition by student_id order by grade desc ,course_id asc) as ranking 
+from enrollments)
+select student_id,course_id, grade
+from new 
+where ranking=1
+
+RANK()为您提供有序分区内的排名。关系被分配相同的排名，跳过下一个排名。因此，如果您有 3 个项目处于第 2 位，则列出的下一个排名将是第 5 位。
+
+DENSE_RANK()再次为您提供有序分区内的排名，但排名是连续的。如果有多个项目的行列，则不会跳过任何行列。

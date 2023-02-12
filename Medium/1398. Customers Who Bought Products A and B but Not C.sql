@@ -84,3 +84,25 @@ having sum(b.product_name="A") >0 and sum(b.product_name="B") > 0 and sum(b.prod
 /*summary:
 1. 行转列
 */
+
+第二次做：
+select distinct a.customer_id, b.customer_name
+from 
+(select customer_id, 
+sum(if(product_name='A',1,0)) as num_a, 
+sum(if(product_name='B',1,0)) as num_b, 
+sum(if(product_name='C',1,0)) as num_c
+from Orders
+group by 1)a
+inner join
+(select customer_id, customer_name
+from Customers)b
+on a.customer_id=b.customer_id
+where num_a>0
+and num_b>0
+and num_c=0
+order by customer_id
+
+注意：
+区别sum 和count
+记得加group by 1

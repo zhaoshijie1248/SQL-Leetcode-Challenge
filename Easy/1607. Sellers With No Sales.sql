@@ -130,3 +130,19 @@ result:
 | 2         | Elizabeth   | 2        | 2020-05-25 | 2400       | 102         | 2         |
 | 3         | Frank       |          |            |            |             |           |
 */
+
+第二次做：
+
+select seller_name
+from Seller s
+where seller_id not in 
+(select distinct seller_id 
+from Orders o
+where date_format(sale_date,'%Y')=2020
+and order_cost>0)
+order by seller_name asc
+
+错误: 
+是 not in 不是 is not in
+date 格式转化
+表不加别名
